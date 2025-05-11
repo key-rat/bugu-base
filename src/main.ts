@@ -1,14 +1,25 @@
-import './assets/main.css'
-
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-
+import { setupStore } from './stores'
+import { setupDirectives } from './plugins'
 import App from './App.vue'
-import router from './router'
+import router, { setupRouter } from './router'
 
-const app = createApp(App)
+async function bootstrap(): Promise<void> {
+  const app = createApp(App)
 
-app.use(createPinia())
-app.use(router)
+  // 注册全局自定义指令，如：v-permission权限指令
+  setupDirectives(app)
 
-app.mount('#app')
+  // 挂载路由
+  setupRouter(app)
+
+  // 挂载状态管理
+  setupStore(app)
+
+  // 路由准备就绪后挂载APP实例
+  await router.isReady()
+
+  app.mount('#app')
+}
+
+void bootstrap()

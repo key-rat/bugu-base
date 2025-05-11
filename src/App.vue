@@ -1,70 +1,36 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useLayoutStore } from './stores'
+
+const onResize = (dom) => {
+  // dom为元素变化后的宽高
+  const layoutStore = useLayoutStore()
+  layoutStore.layout = Object.assign({}, layoutStore.layout, dom)
+}
+</script>
 
 <template>
-  AppLayout
-  <RouterView />
+  <div class="app-layout" v-resize:100="onResize">
+    <RouterView />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<style lang="scss">
+@use '@/style/index.scss';
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
+/* ===============
+//    自定义页面样式 app铺满画面
+//    =============== */
+html,
+body,
+#app {
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  height: 100%;
+  margin: 0;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.app-layout {
+  width: 100%;
+  height: 100%;
+  @include flex-box(column, flex-start);
 }
 </style>
