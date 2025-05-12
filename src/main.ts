@@ -3,12 +3,16 @@ import { setupStore } from './stores'
 import { setupDirectives } from './plugins'
 import App from './App.vue'
 import router, { setupRouter } from './router'
+import { setupI18n } from './locales'
 
 async function bootstrap(): Promise<void> {
   const app = createApp(App)
 
-  // 注册全局自定义指令，如：v-permission权限指令
+  // 注册全局自定义指令
   setupDirectives(app)
+
+  // 国际化 i18n 配置
+  await setupI18n(app)
 
   // 挂载路由
   setupRouter(app)
