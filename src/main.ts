@@ -4,9 +4,12 @@ import { setupDirectives } from './plugins'
 import App from './App.vue'
 import router, { setupRouter } from './router'
 import { setupI18n } from './locales'
+import { setupIcon } from './plugins'
 
 async function bootstrap(): Promise<void> {
   const app = createApp(App)
+  //全局注册element-plus icon
+  setupIcon(app)
 
   // 注册全局自定义指令
   setupDirectives(app)
