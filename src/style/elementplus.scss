@@ -1,0 +1,11 @@
+@use './mixin.scss';
+
+.el-drawer__header {
+  color: var(--el-text-color-primary) !important;
+  margin-bottom: 0 !important;
+  .el-icon {
+    width: 30px;
+    height: 30px;
+    @extend %btn-style2;
+  }
+}

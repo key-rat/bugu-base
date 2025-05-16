@@ -1,2 +1,17 @@
 @use './base.scss';
 @use './elementplus.scss';
+
+.btn-icon-circle {
+  @extend %btn-style2;
+  width: 30px;
+  height: 30px;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}

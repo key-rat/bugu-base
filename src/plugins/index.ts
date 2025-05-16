@@ -1,5 +1,6 @@
 import type { App } from 'vue'
 import { Resize } from './resizeObserver'
+export { setupIcon } from './icons'
 
 /**
  * 注册全局自定义指令
