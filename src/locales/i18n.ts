@@ -7,6 +7,7 @@ import type {
 } from './typing'
 import type { App } from 'vue'
 import { useSimpleLocale } from './useSimpleLocale'
+import { storageLocal } from '@/utils/storage'
 
 const i18n = createI18n({
   globalInjection: true,
@@ -97,12 +98,7 @@ async function loadLocaleMessages(lang: SupportedLanguagesType) {
   }
 
   setSimpleLocale(lang)
-
-  // const message = await localesMap[lang]?.();
-
-  // if (message?.default) {
-  //   i18n.global.setLocaleMessage(lang, message.default);
-  // }
+  storageLocal.setItem('lang', { lang })
 
   const mergeMessage = await loadMessages(lang)
   i18n.global.mergeLocaleMessage(lang, mergeMessage)

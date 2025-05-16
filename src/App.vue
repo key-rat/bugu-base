@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useLayoutStore } from './stores'
-import { elementLocale, changeLanguage } from '@/locales'
+import { elementLocale } from '@/locales'
 
 const onResize = (dom) => {
   // dom为元素变化后的宽高
@@ -11,7 +11,6 @@ const onResize = (dom) => {
 
 <template>
   <div class="app-layout" v-resize:100="onResize">
-    <div @click="changeLanguage">{{ $t('demos.changeLanguage') }}</div>
     <el-config-provider :locale="elementLocale">
       <RouterView />
     </el-config-provider>
@@ -30,11 +29,15 @@ body,
   width: 100%;
   height: 100%;
   margin: 0;
+  color: var(--el-text-color-primary);
 }
 
 .app-layout {
   width: 100%;
   height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
   @include flex-box(column, flex-start);
+  background: var(--el-bg-color);
 }
 </style>

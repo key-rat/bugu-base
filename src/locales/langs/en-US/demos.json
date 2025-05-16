@@ -1,5 +1,6 @@
 {
-  "layout": "layout",
+  "changeLanguage": "change language",
   "home": "home",
-  "changeLanguage": "change language"
+  "layout": "layout",
+  "logo": "bugu"
 }

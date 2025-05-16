@@ -7,6 +7,7 @@ import type { LocaleSetupOptions, SupportedLanguagesType } from './typing'
 import type { App } from 'vue'
 
 import { currentLocale, setupI18n as coreSetup } from './i18n'
+import { storageLocal } from '@/utils/storage'
 
 const modules = import.meta.glob('./langs/**/*.json')
 const localesMap = loadLocalesMapFromDir(/\.\/langs\/([^/]+)\/(.*)\.json$/, modules)
@@ -49,7 +50,7 @@ async function loadElementLocale(lang: SupportedLanguagesType) {
 
 async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
   await coreSetup(app, {
-    defaultLocale: 'zh-CN',
+    defaultLocale: storageLocal.getItem('lang')?.lang || 'zh-CN',
     loadMessages,
     missingWarn: !import.meta.env.PROD,
     ...options,
@@ -58,9 +59,20 @@ async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
 
 const $t: typeof i18n.global.t = i18n.global.t
 
-const changeLanguage = () => {
-  currentLocale.value = currentLocale.value === 'zh-CN' ? 'en-US' : 'zh-CN'
+const LanguageList = [
+  {
+    label: '简体中文',
+    value: 'zh-CN',
+  },
+  {
+    label: 'English',
+    value: 'en-US',
+  },
+]
+
+const changeLanguage = (lang) => {
+  currentLocale.value = lang
   loadLocaleMessages(currentLocale.value)
 }
 
-export { $t, currentLocale, elementLocale, setupI18n, changeLanguage }
+export { $t, currentLocale, elementLocale, setupI18n, changeLanguage, LanguageList }

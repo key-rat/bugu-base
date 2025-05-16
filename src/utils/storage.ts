@@ -12,7 +12,10 @@ class sessionStorageProxy implements storageFunType {
     this.storage = storageModel
   }
   getItem(key: string) {
-    return JSON.parse(this.storage.getItem(key)) || null
+    if (this.storage.getItem(key)) {
+      return JSON.parse(this.storage.getItem(key))
+    }
+    return null
   }
   setItem(key: string, value): void {
     this.storage.setItem(key, JSON.stringify(value))
